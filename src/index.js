@@ -1,4 +1,6 @@
-import './index.css'
-const root = document.getElementById('root')
-root.innerHTML = 'Blin'
-console.log('WORKS')
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from './components/App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(<App />)
