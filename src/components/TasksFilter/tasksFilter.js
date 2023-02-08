@@ -3,21 +3,17 @@ import './tasksFilter.css';
 
 const TasksFilter = () => {
     return (
-        <footer className="footer">
-          <span className="todo-count">1 items left</span>
-          <ul className="filters">
+        <ul className="filters">
             <li>
-              <button className="selected">All</button>
+            <button className="selected">All</button>
             </li>
             <li>
-              <button>Active</button>
+            <button>Active</button>
             </li>
             <li>
-              <button>Completed</button>
+            <button>Completed</button>
             </li>
-          </ul>
-          <button className="clear-completed">Clear completed</button>
-        </footer>
+        </ul>
     )
 }
 

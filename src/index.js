@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Footer from "./components/Footer";
 import NewTaskForm from "./components/NewTaskForm";
 import TaskList from "./components/TaskList";
-import TasksFilter from "./components/TasksFilter";
 import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -13,7 +13,7 @@ const App = () => {
                 <NewTaskForm />
             <section className="main">
                 <TaskList />
-                <TasksFilter />
+                <Footer />
             </section>
         </section>
     );
