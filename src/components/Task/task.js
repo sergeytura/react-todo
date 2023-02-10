@@ -3,33 +3,35 @@ import './task.css';
 
 export default class Task extends React.Component {
 
-    state = {
-        completed: false,
-        editing: false,
-    }
+    // state = {
+    //     completed: false,
+    //     editing: false,
+    // }
 
-    onLabelClick = () => {
-        this.setState(({completed}) => {
-            return {completed: !completed}
-        })
-    }
+    // onLabelClick = () => {
+    //     this.setState(({completed}) => {
+    //         return {completed: !completed}
+    //     })
+    // }
 
-    onEditingClick = () => {
-        this.setState(({editing}) => {
-            return {editing: !editing}
-        })
-    }
+    // onEditingClick = () => {
+    //     this.setState(({editing}) => {
+    //         return {editing: !editing}
+    //     })
+    // }
 
     render () {
-        const {onDeleted} = this.props;
-        const {completed, editing} = this.state;
+        const {onDeleted, onToggleCompleted} = this.props;
+        // const {completed, editing} = this.state;
         let classNames = '';
-        if(completed) classNames = 'completed'
-        if(editing) classNames = 'editing'      
+        // if(completed) classNames = 'completed'
+        // if(editing) classNames = 'editing'      
         return (
             <li className={classNames}>
                 <div className="view" onClick={this.onLabelClick}>
-                <input  className="toggle" type="checkbox"/>
+                <input  className="toggle"
+                onClick={onToggleCompleted}
+                type="checkbox"/>
                 <label>
                     <span className="description"
                     >Editing task</span>

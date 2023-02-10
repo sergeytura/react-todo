@@ -1,14 +1,31 @@
 import React from "react";
 import './newTaskForm.css';
 
-const NewTaskForm = () => {
+export default class NewTaskForm extends React.Component {
 
-    return (
-        <header className="header">
-            <h1>todos</h1>
-            <input className="new-todo" placeholder="What needs to be done?" autoFocus/>
-        </header>
-    )
+    state = {
+        newTask: ''
+    }
+
+    // getTask () {
+    //     console.log('hi')
+    // }
+    
+
+    render() {
+        const {onItem} = this.props
+        return (
+            <header className="header">
+                <h1>todos</h1>
+                
+                    <input 
+                    className="new-todo" 
+                    placeholder="What needs to be done?"
+                    onChange={ () => onItem()}
+                    autoFocus/>
+            </header>
+        )
+
+        
+    }
 }
-
-export default NewTaskForm;

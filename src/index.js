@@ -11,11 +11,15 @@ class App extends React.Component {
     
     state = {
         todoData: [
-            { label: "first" },
-            { label: "second" },
-            { label: "third" }
+            { label: "first a" },
+            { label: "second b" },
+            { label: "third c" }
         ]
     };
+
+    onToggleCompleted = () => {
+        console.log('Toggle Completed')
+    }
 
     deleteItem = (label) => {
         console.log(label)
@@ -31,13 +35,27 @@ class App extends React.Component {
         })
     }
 
+    addItem = (text) => {
+        console.log('woops')
+        const newItem = {
+            label: text
+        }
+        this.setState(({todoData}) => {
+            const newArr = [...todoData, newItem]
+            return {
+                todoData: newArr
+            }
+        })
+    }
+
     render () {
         const {todoData} = this.state;
         return (
             <section className="todoapp">
-                    <NewTaskForm />
+                    <NewTaskForm onItem={this.addItem} />
                 <section className="main">
-                    <TaskList 
+                    <TaskList
+                    onToggleCompleted={this.onToggleCompleted} 
                     todos={todoData}
                     onDeleted={this.deleteItem}/>
                     <Footer />
