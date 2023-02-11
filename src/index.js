@@ -1,4 +1,3 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Footer from "./components/Footer";
@@ -15,6 +14,9 @@ class App extends React.Component {
     state = {
         value: '',
         todoData: [
+            this.createTodoItem('first a'),
+            this.createTodoItem('sec b'),
+            this.createTodoItem('thutt c'),
             this.createTodoItem('first a'),
             this.createTodoItem('sec b'),
             this.createTodoItem('thutt c')
@@ -81,16 +83,37 @@ class App extends React.Component {
         })
     }
 
-    clearCompleted (){
-        console.log('clear')
+    clearCompleted = () => {
+        this.setState(({todoData}) => {
+            const clearArr = todoData.filter((el) => !el.completed)
+            return {
+                todoData: clearArr
+            }
+        })
     }
 
-    handleChange(event) {
-       
+    allFilter = () => {
+        console.log('all filter')
     }
 
-    handleSubmit(event) {
-        
+    activeFilter = () => {
+        this.setState(({todoData}) => {
+            const activeArray = todoData.filter((el) => !el.completed)
+            return {
+                todoData: activeArray
+            }
+        })
+        console.log('active filter')
+    }
+
+    complitedFilter = () => {
+        this.setState(({todoData}) => {
+            const complitedArray = todoData.filter((el) => el.completed)
+            return {
+                todoData: complitedArray
+            }
+        })
+        console.log('complited filter')
     }
 
     render () {
@@ -99,14 +122,18 @@ class App extends React.Component {
         const itemsLeft = todoData.length - itemsCompleted.length;
         return (
             <section className="todoapp">
-                    <NewTaskForm onItem={this.addItem} />
+                    <NewTaskForm 
+                    onItem={this.addItem}/>
                 <section className="main">
                     <TaskList
                     onToggleCompleted={this.onToggleCompleted}
                     onEditing={this.onEditing} 
                     todos={todoData}
                     onDeleted={this.deleteItem}/>
-                    <Footer 
+                    <Footer
+                    allFilter={this.allFilter}
+                    activeFilter={this.activeFilter}
+                    complitedFilter={this.complitedFilter} 
                     items={itemsLeft}
                     onClear={this.clearCompleted}/>
                 </section>
