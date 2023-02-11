@@ -9,9 +9,9 @@ export default class Task extends React.Component {
     // }
 
     // onLabelClick = () => {
-    //     this.setState(({completed}) => {
-    //         return {completed: !completed}
-    //     })
+        // this.setState(({completed}) => {
+        //     return {completed: !completed}
+        // })
     // }
 
     // onEditingClick = () => {
@@ -21,24 +21,24 @@ export default class Task extends React.Component {
     // }
 
     render () {
-        const {onDeleted, onToggleCompleted} = this.props;
+        const {label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
         // const {completed, editing} = this.state;
         let classNames = '';
-        // if(completed) classNames = 'completed'
-        // if(editing) classNames = 'editing'      
+        if(completed) classNames = 'completed'
+        if(editing) classNames = 'editing'      
         return (
             <li className={classNames}>
-                <div className="view" onClick={this.onLabelClick}>
+                <div className="view">
                 <input  className="toggle"
                 onClick={onToggleCompleted}
                 type="checkbox"/>
                 <label>
                     <span className="description"
-                    >Editing task</span>
+                    >{label}</span>
                     <span className="created">created 5 minutes ago</span>
                 </label>
                 <button className="icon icon-edit"
-                onClick={this.onEditingClick}></button>
+                onClick={onEditing}></button>
                 <button className="icon icon-destroy"
                 onClick={onDeleted}></button>
                 </div>

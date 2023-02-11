@@ -3,15 +3,6 @@ import './newTaskForm.css';
 
 export default class NewTaskForm extends React.Component {
 
-    state = {
-        newTask: ''
-    }
-
-    // getTask () {
-    //     console.log('hi')
-    // }
-    
-
     render() {
         const {onItem} = this.props
         return (
