@@ -3,33 +3,29 @@ import './tasksFilter.css';
 
 export default class TasksFilter extends React.Component  {
     
-    state = {
-        all: true,
-        active: true,
-        completed: false
-    }
 
     render() {
-        const {all,active,completed} = this.state;
-        const {allFilter,activeFilter, complitedFilter} = this.props
 
-        let classNames;
-        all ? classNames = 'selected' : classNames = ''
-        active ? classNames = 'selected' : classNames = ''
-        completed ? classNames = 'selected' : classNames = ''
+        const {allFilter,activeFilter, complitedFilter,all,active,completed} = this.props
+        let allData;
+        let activeData;
+        let completedData;
+        all ? allData = 'selected' : allData = ''
+        active ? activeData = 'selected' : activeData = ''
+        completed ? completedData = 'selected' : completedData = ''
         
         return (
             <ul className="filters">
                 <li>
-                <button className={classNames}
+                <button className={allData}
                 onClick={allFilter}>All</button>
                 </li>
                 <li>
-                <button className={classNames}
+                <button className={activeData}
                 onClick={activeFilter}>Active</button>
                 </li>
                 <li>
-                <button className={classNames}
+                <button className={completedData}
                 onClick={complitedFilter}>Completed</button>
                 </li>
             </ul>

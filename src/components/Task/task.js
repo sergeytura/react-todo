@@ -4,30 +4,33 @@ import './task.css';
 export default class Task extends React.Component {
 
     render () {
-        const {label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
+        const {onSubmitEdit,onChangeEdit,label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
         let classNames = '';
         if(completed) classNames = 'completed'
         if(editing) classNames = 'editing'      
         return (
             <li className={classNames}>
                 <div className="view">
-                <input  className="toggle"
-                onClick={onToggleCompleted}
-                type="checkbox"/>
+                    <input className="toggle"
+                    onClick={onToggleCompleted}
+                    defaultChecked={completed}
+                    type="checkbox"/>
                 <label>
                     <span className="description"
                     >{label}</span>
                     <span className="created">created 5 minutes ago</span>
                 </label>
-                <button className="icon icon-edit"
-                onClick={onEditing}></button>
-                <button className="icon icon-destroy"
-                onClick={onDeleted}></button>
+                    <button className="icon icon-edit"
+                    onClick={onEditing}></button>
+                    <button className="icon icon-destroy"
+                    onClick={onDeleted}></button>
                 </div>
-                <input type="text" 
-                className="edit" 
-                value={label}
-                onChange={() => console.log('work')}/>
+                <form onSubmit={onSubmitEdit}>
+                    <input type="text" 
+                    className="edit" 
+                    defaultValue={label}
+                    onChange={onChangeEdit}/>
+                </form>
             </li>
         )
     }

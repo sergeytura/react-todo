@@ -12,6 +12,9 @@ class App extends React.Component {
     genID = 100
     
     state = {
+        all: true,
+        active: false,
+        completed: false,
         value: '',
         todoData: [
             this.createTodoItem('first a'),
@@ -20,7 +23,8 @@ class App extends React.Component {
             this.createTodoItem('first a'),
             this.createTodoItem('sec b'),
             this.createTodoItem('thutt c')
-        ]
+        ],
+        filterData: []
     };
 
     createTodoItem(label) {
@@ -56,6 +60,27 @@ class App extends React.Component {
         })
     }
 
+    onChangeEdit = (id, event) => {
+        this.setState(({todoData}) => {
+            const idx = todoData.findIndex((el) => el.id === id);
+            const oldItem = todoData[idx];
+            const newItem = {...oldItem, label: event.target.value};
+            const newArr = [...todoData.slice(0,idx),newItem,...todoData.slice(idx + 1)];
+            return {
+                todoData: newArr
+            }
+        })
+    }
+
+    onSubmitEdit = (id, event) => {
+        event.preventDefault()
+        this.setState(({ todoData }) => {
+            return {
+                todoData: this.toggleProperty(todoData, id, 'editing')
+            }
+        })
+    }
+
     deleteItem = (id) => {
         this.setState(({todoData}) => {
             const idx = todoData.findIndex((el) => el.id === id);
@@ -84,40 +109,52 @@ class App extends React.Component {
     }
 
     clearCompleted = () => {
-        this.setState(({todoData}) => {
-            const clearArr = todoData.filter((el) => !el.completed)
+        this.setState(({todoData,filterData}) => {
+            const clearData = todoData.filter((el) => !el.completed)
+            const clearFilterData = filterData.filter((el) => !el.completed)
+
             return {
-                todoData: clearArr
+                todoData: clearData,
+                filterData: clearFilterData
             }
         })
     }
 
     allFilter = () => {
-        console.log('all filter')
+        this.setState({
+            all: true,
+            active: false,
+            completed: false
+        })
+
     }
 
     activeFilter = () => {
         this.setState(({todoData}) => {
             const activeArray = todoData.filter((el) => !el.completed)
             return {
-                todoData: activeArray
+                all: false,
+                active: true,
+                completed: false,
+                filterData: activeArray
             }
         })
-        console.log('active filter')
     }
 
     complitedFilter = () => {
         this.setState(({todoData}) => {
             const complitedArray = todoData.filter((el) => el.completed)
             return {
-                todoData: complitedArray
+                all: false,
+                active: false,
+                completed: true,
+                filterData: complitedArray
             }
         })
-        console.log('complited filter')
     }
 
     render () {
-        const {todoData} = this.state;
+        const {filterData,todoData,all,active,completed} = this.state;
         const itemsCompleted = todoData.filter((el) => el.completed)
         const itemsLeft = todoData.length - itemsCompleted.length;
         return (
@@ -126,11 +163,17 @@ class App extends React.Component {
                     onItem={this.addItem}/>
                 <section className="main">
                     <TaskList
+                    onSubmitEdit={this.onSubmitEdit}
+                    onChangeEdit={this.onChangeEdit}
                     onToggleCompleted={this.onToggleCompleted}
                     onEditing={this.onEditing} 
-                    todos={todoData}
+                    todos={(all) ? todoData : filterData}
+                    // todos={this.sendData}
                     onDeleted={this.deleteItem}/>
                     <Footer
+                    all={all}
+                    active={active}
+                    completed={completed} 
                     allFilter={this.allFilter}
                     activeFilter={this.activeFilter}
                     complitedFilter={this.complitedFilter} 
