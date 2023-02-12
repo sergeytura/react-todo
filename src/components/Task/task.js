@@ -5,8 +5,14 @@ import './task.css';
 
 export default class Task extends React.Component {
 
+    state = {
+        dataCreated: null,
+        timeCreated: this.props.time
+    }
+
     render () {
-        const {time, onSubmitEdit,onChangeEdit,label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
+        const { timeCreated } = this.state
+        const { onSubmitEdit,onChangeEdit,label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
         let classNames = '';
         if(completed) classNames = 'completed'
         if(editing) classNames = 'editing'      
@@ -20,7 +26,7 @@ export default class Task extends React.Component {
                 <label>
                     <span className="description"
                     >{label}</span>
-                    <span className="created">Created {formatDistanceToNow(time,{includeSeconds:true})}</span>
+                    <span className="created">Created {formatDistanceToNow(timeCreated,{includeSeconds:true})}</span>
                 </label>
                     <button className="icon icon-edit"
                     onClick={onEditing}></button>
