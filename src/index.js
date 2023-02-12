@@ -17,24 +17,25 @@ class App extends React.Component {
         completed: false,
         value: '',
         todoData: [
-            this.createTodoItem('first a'),
-            this.createTodoItem('sec b'),
-            this.createTodoItem('thutt c'),
-            this.createTodoItem('first a'),
-            this.createTodoItem('sec b'),
-            this.createTodoItem('thutt c')
+            // this.createTodoItem('first a'),
+            // this.createTodoItem('sec b'),
+            // this.createTodoItem('thutt c'),
+            // this.createTodoItem('first a'),
+            // this.createTodoItem('sec b'),
+            // this.createTodoItem('thutt c')
         ],
         filterData: []
     };
 
-    createTodoItem(label) {
-        return {
-            label,
-            completed: false,
-            editing: false,
-            id: this.genID++
-        }
-    }
+    // createTodoItem(label) {
+    //     return {
+    //         label,
+    //         completed: false,
+    //         editing: false,
+    //         time: new Date(),
+    //         id: this.genID++
+    //     }
+    // }
 
     toggleProperty (arr, id, propName) {
         const idx = arr.findIndex((el) => el.id === id);
@@ -98,6 +99,7 @@ class App extends React.Component {
             label: text,
             completed: false,
             editing: false,
+            time: new Date(),
             id: this.genID++
         }
         this.setState(({todoData}) => {
@@ -168,7 +170,6 @@ class App extends React.Component {
                     onToggleCompleted={this.onToggleCompleted}
                     onEditing={this.onEditing} 
                     todos={(all) ? todoData : filterData}
-                    // todos={this.sendData}
                     onDeleted={this.deleteItem}/>
                     <Footer
                     all={all}

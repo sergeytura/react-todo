@@ -1,10 +1,12 @@
 import React from "react";
+import { formatDistanceToNow } from 'date-fns'
 import './task.css';
+
 
 export default class Task extends React.Component {
 
     render () {
-        const {onSubmitEdit,onChangeEdit,label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
+        const {time, onSubmitEdit,onChangeEdit,label,onDeleted, onToggleCompleted, onEditing, completed, editing} = this.props;
         let classNames = '';
         if(completed) classNames = 'completed'
         if(editing) classNames = 'editing'      
@@ -18,7 +20,7 @@ export default class Task extends React.Component {
                 <label>
                     <span className="description"
                     >{label}</span>
-                    <span className="created">created 5 minutes ago</span>
+                    <span className="created">Created {formatDistanceToNow(time,{includeSeconds:true})}</span>
                 </label>
                     <button className="icon icon-edit"
                     onClick={onEditing}></button>

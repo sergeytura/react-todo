@@ -12,7 +12,7 @@ const TaskList = ({todos, onDeleted, onEditing,onSubmitEdit,onChangeEdit, onTogg
             onToggleCompleted={() => onToggleCompleted(id)}
             onEditing={() => onEditing(id)}
             onDeleted={() => onDeleted(id)}
-            onChangeEdit={(event) =>onChangeEdit(id,event)}
+            onChangeEdit={(event) => onChangeEdit(id,event)}
             onSubmitEdit={(event) => onSubmitEdit(id,event)}></Task>
         )
         })
