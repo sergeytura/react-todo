@@ -1,8 +1,17 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import './tasksFilter.css';
 
 export default class TasksFilter extends React.Component  {
     
+    static propTypes = {
+        allFilter: PropTypes.func,
+        activeFilter: PropTypes.func,
+        complitedFilter: PropTypes.func,
+        all: PropTypes.bool,
+        active: PropTypes.bool,
+        completed: PropTypes.bool
+    }
 
     render() {
 

@@ -1,8 +1,16 @@
 import React from "react";
-import { formatDistanceToNow } from 'date-fns'
+import PropTypes from 'prop-types';
 import './newTaskForm.css';
 
 export default class NewTaskForm extends React.Component {
+
+    static propTypes = {
+        onChange: PropTypes.func,
+        onChangeLabel: PropTypes.func,
+        onItem: PropTypes.func,
+        label: PropTypes.string,
+        onSubmitLabel: PropTypes.func
+    }
 
     state = {
         label: ''

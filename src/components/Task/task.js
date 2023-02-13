@@ -1,10 +1,22 @@
 import React from "react";
+import PropTypes from 'prop-types'; 
 import { formatDistanceToNow } from 'date-fns'
 import './task.css';
 
 
 export default class Task extends React.Component {
 
+    static propTypes = {
+        onSubmit: PropTypes.func,
+        onSubmitEdit: PropTypes.func,
+        onChangeEdit: PropTypes.func,
+        onDeleted: PropTypes.func,
+        onToggleCompleted: PropTypes.func,
+        onEditing: PropTypes.func,
+        label: PropTypes.string,
+        completed: PropTypes.bool,
+        editing: PropTypes.bool
+    }
 
     render () {
         
