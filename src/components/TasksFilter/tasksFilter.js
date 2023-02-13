@@ -4,6 +4,15 @@ import './tasksFilter.css';
 
 export default class TasksFilter extends React.Component  {
     
+    static defaultProps = {
+        allFilter: () => {},
+        activeFilter: () => {},
+        complitedFilter: () => {},
+        all: true,
+        active: false,
+        completed: false   
+    }
+
     static propTypes = {
         allFilter: PropTypes.func,
         activeFilter: PropTypes.func,

@@ -5,6 +5,15 @@ import './taskList.css'
 
 const TaskList = ({todos, onDeleted, onEditing,onSubmitEdit,onChangeEdit, onToggleCompleted}) => {
     
+    TaskList.defaultProps = {
+        onDeleted: () => {},
+        onEditing: () => {},
+        onSubmitEdit: () => {},
+        onChangeEdit: () => {},
+        onToggleCompleted: () => {},
+        todos: [{}]
+    }
+
     TaskList.propTypes = {
         onDeleted: PropTypes.func,
         onEditing: PropTypes.func,

@@ -4,6 +4,14 @@ import './newTaskForm.css';
 
 export default class NewTaskForm extends React.Component {
 
+    static defaultProps = {
+        onChange: () => {},
+        onChangeLabel: () => {},
+        onItem: () => {},
+        label: '',
+        onSubmitLabel: () => {}
+    }
+
     static propTypes = {
         onChange: PropTypes.func,
         onChangeLabel: PropTypes.func,

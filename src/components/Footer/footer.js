@@ -5,6 +5,17 @@ import './footer.css';
 
 const Footer = ({items,onClear,allFilter,complitedFilter,activeFilter,all,active,completed}) => {
 
+    Footer.defaultProps = {
+      items: 0,
+      onClear: () => {},
+      all: true,
+      active: false,
+      completed: false,
+      allFilter: true,
+      activeFilter: false,
+      complitedFilter: false
+    }
+
     Footer.propTypes = {
       items: PropTypes.number,
       onClear: PropTypes.func,

@@ -6,6 +6,18 @@ import './task.css';
 
 export default class Task extends React.Component {
 
+    static defaultProps = {
+        onSubmit: () => {},
+        onSubmitEdit: () => {},
+        onChangeEdit: () => {},
+        onDeleted: () => {},
+        onToggleCompleted: () => {},
+        onEditing: () => {},
+        label: '',
+        completed: false,
+        editing: false
+    }
+
     static propTypes = {
         onSubmit: PropTypes.func,
         onSubmitEdit: PropTypes.func,
