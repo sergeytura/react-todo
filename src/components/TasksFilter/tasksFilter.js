@@ -1,52 +1,47 @@
-import React from "react";
-import PropTypes from 'prop-types';
-import './tasksFilter.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './tasksFilter.css'
 
-export default class TasksFilter extends React.Component  {
-    
-    static defaultProps = {
-        allFilter: () => {},
-        activeFilter: () => {},
-        complitedFilter: () => {},
-        all: true,
-        active: false,
-        completed: false   
-    }
+export default class TasksFilter extends React.Component {
+  render() {
+    const { allFilter, activeFilter, complitedFilter, all, active, done } = this.props
 
-    static propTypes = {
-        allFilter: PropTypes.func,
-        activeFilter: PropTypes.func,
-        complitedFilter: PropTypes.func,
-        all: PropTypes.bool,
-        active: PropTypes.bool,
-        completed: PropTypes.bool
-    }
+    return (
+      <ul className="filters">
+        <li>
+          <button type="button" className={all ? 'selected' : ''} onClick={allFilter}>
+            All
+          </button>
+        </li>
+        <li>
+          <button type="button" className={active ? 'selected' : ''} onClick={activeFilter}>
+            Active
+          </button>
+        </li>
+        <li>
+          <button type="button" className={done ? 'selected' : ''} onClick={complitedFilter}>
+            Completed
+          </button>
+        </li>
+      </ul>
+    )
+  }
+}
 
-    render() {
+TasksFilter.defaultProps = {
+  allFilter: () => {},
+  activeFilter: () => {},
+  complitedFilter: () => {},
+  all: true,
+  active: false,
+  done: false,
+}
 
-        const {allFilter,activeFilter, complitedFilter,all,active,completed} = this.props
-        let allData;
-        let activeData;
-        let completedData;
-        all ? allData = 'selected' : allData = ''
-        active ? activeData = 'selected' : activeData = ''
-        completed ? completedData = 'selected' : completedData = ''
-        
-        return (
-            <ul className="filters">
-                <li>
-                <button className={allData}
-                onClick={allFilter}>All</button>
-                </li>
-                <li>
-                <button className={activeData}
-                onClick={activeFilter}>Active</button>
-                </li>
-                <li>
-                <button className={completedData}
-                onClick={complitedFilter}>Completed</button>
-                </li>
-            </ul>
-        )
-    }
+TasksFilter.propTypes = {
+  allFilter: PropTypes.func,
+  activeFilter: PropTypes.func,
+  complitedFilter: PropTypes.func,
+  all: PropTypes.bool,
+  active: PropTypes.bool,
+  done: PropTypes.bool,
 }
