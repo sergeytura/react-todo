@@ -28,7 +28,7 @@ export default class NewTaskForm extends React.Component {
         <h1>todos</h1>
         <form onSubmit={this.onSubmitLabel}>
           <input
-            required="1"
+            required
             className="new-todo"
             placeholder="What needs to be done?"
             onChange={this.onChangeLabel}
