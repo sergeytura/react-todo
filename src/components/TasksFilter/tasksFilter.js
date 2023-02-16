@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import './tasksFilter.css'
 
 export default class TasksFilter extends React.Component {
@@ -9,17 +10,17 @@ export default class TasksFilter extends React.Component {
     return (
       <ul className="filters">
         <li>
-          <button type="button" className={all ? 'selected' : ''} onClick={allFilter}>
+          <button type="button" className={classNames(null, { selected: all === true })} onClick={allFilter}>
             All
           </button>
         </li>
         <li>
-          <button type="button" className={active ? 'selected' : ''} onClick={activeFilter}>
+          <button type="button" className={classNames(null, { selected: active === true })} onClick={activeFilter}>
             Active
           </button>
         </li>
         <li>
-          <button type="button" className={done ? 'selected' : ''} onClick={complitedFilter}>
+          <button type="button" className={classNames(null, { selected: done === true })} onClick={complitedFilter}>
             Completed
           </button>
         </li>

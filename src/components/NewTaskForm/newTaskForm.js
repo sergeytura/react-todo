@@ -28,8 +28,7 @@ export default class NewTaskForm extends React.Component {
         <h1>todos</h1>
         <form onSubmit={this.onSubmitLabel}>
           <input
-            required
-            minLength="1"
+            required="1"
             className="new-todo"
             placeholder="What needs to be done?"
             onChange={this.onChangeLabel}
@@ -42,17 +41,9 @@ export default class NewTaskForm extends React.Component {
 }
 
 NewTaskForm.defaultProps = {
-  // onChange: () => {},
-  // onChangeLabel: () => {},
   onItem: () => {},
-  // label: '',
-  // onSubmitLabel: () => {},
 }
 
 NewTaskForm.propTypes = {
-  // onChange: PropTypes.func,
-  // onChangeLabel: PropTypes.func,
   onItem: PropTypes.func,
-  // label: PropTypes.string,
-  // onSubmitLabel: PropTypes.func,
 }
