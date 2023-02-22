@@ -7,12 +7,16 @@ import './App.css'
 
 export default class App extends React.Component {
   genID = 100
+  // secTask = 0;
+  // minTask = 0;
 
   state = {
     all: true,
     active: false,
     done: false,
     todoData: [],
+    secTask: '',
+    minTask: '' 
   }
 
   onToggleCompleted = (id) => {
@@ -69,6 +73,8 @@ export default class App extends React.Component {
       editing: false,
       time: new Date(),
       id: this.genID++,
+      sec: 0,
+      min: 0 
     }
     this.setState(({ todoData }) => {
       const newArr = [...todoData, newItem]
@@ -111,6 +117,8 @@ export default class App extends React.Component {
     })
   }
 
+  
+
   todoRender = () => {
     if (this.state.all) return this.state.todoData
     if (this.state.active) return this.state.todoData.filter((el) => !el.completed)
@@ -124,15 +132,29 @@ export default class App extends React.Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)]
   }
 
+  showTimer = (seconds, minutes) => {
+    this.setState(({secTask, minTask}) => {
+        return {
+          secTask: seconds,
+          minTask: minutes
+        }
+      
+    })
+  }
+
   render() {
-    const { todoData, all, active, done } = this.state
+    const { todoData, all, active, done, secTask, minTask } = this.state
+    const { } = this.props
     const itemsCompleted = todoData.filter((el) => el.completed)
     const itemsLeft = todoData.length - itemsCompleted.length
     return (
       <section className="todoapp">
-        <NewTaskForm onItem={this.addItem} />
+        <NewTaskForm onItem={this.addItem} secTask={secTask} minTask={minTask}/>
         <section className="main">
           <TaskList
+            // onPlay={this.onPlay}
+            // onPause={this.onPause}
+            showTimer={this.showTimer}
             onSubmitEdit={this.onSubmitEdit}
             onChangeEdit={this.onChangeEdit}
             onToggleCompleted={this.onToggleCompleted}

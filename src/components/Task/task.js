@@ -4,22 +4,73 @@ import { formatDistanceToNow } from 'date-fns'
 import './task.css'
 
 export default class Task extends React.Component {
-  render() {
-    const { time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
-      this.props
 
+  // seconds = 0
+  // minutes = 0
+  
+  state = {
+    seconds: 0,
+    minutes: 0
+  }
+
+  componentDidMount () {
+    
+  }
+
+  onPlay = () => {
+    if(this.interval) clearInterval(this.interval)
+    this.interval = setInterval( () => this.timerWorks(), 1000)
+  }
+
+  onPause = () => {
+    clearInterval(this.interval)
+  }
+
+  timerWorks = () => {
+    if(this.state.seconds > 58) {
+      this.setState( () => {
+        return {
+          seconds: 0,
+          minutes: this.state.minutes + 1
+        }
+      })
+    }else{
+      this.setState(() => {
+        return {
+          seconds: this.state.seconds + 1,
+        }
+      })
+    }
+    console.log('timerWorks', this.state.seconds, this.state.minutes)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
+  // componentDidUpdate(prevState) {
+  //   if(this.state.seconds !== prevState.seconds) {
+  //     console.log('update', this.state.seconds, this.state.minutes)
+  //   }
+  // }
+  
+
+  render() {
+    const { showTimer, time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
+      this.props
+    const { seconds, minutes } = this.state
     let classNames = ''
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'
     return (
-      <li className={classNames}>
-        <div className="view">
+      <li className={classNames} onClick={( ) => showTimer(seconds,minutes ) }>
+        <div className="view" >
           <input className="toggle" onClick={onToggleCompleted} defaultChecked={completed} type="checkbox" />
           <label htmlFor="description">
             <span className="title">{label}</span>
             <span className="description">
-              <button className="icon icon-play"></button>
-              <button className="icon icon-pause"></button>
+              <button className="icon icon-play" onClick={this.onPlay}></button>
+              <button className="icon icon-pause" onClick={this.onPause}></button>
             </span>
             <span className="description">Created {formatDistanceToNow(time, { includeSeconds: true })}</span>
           </label>

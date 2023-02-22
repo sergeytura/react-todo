@@ -6,6 +6,8 @@ export default class NewTaskForm extends React.Component {
   state = {
     label: '',
   }
+ 
+  
 
   onChangeLabel = (event) => {
     this.setState({
@@ -20,10 +22,18 @@ export default class NewTaskForm extends React.Component {
       label: '',
     })
   }
+  interval = setInterval(() => {}, 1000)
+  componentDidMount() {
+    this.interval = setInterval(() => {}, 1000)
+  }
+
+  componentDidUpdate(prevState) {
+  }
 
   render() {
-    const { label } = this.state
-    
+   
+    const { label  } = this.state
+    // const { secTask, minTask } = this.props
     return (
       <header className="header">
         <h1>todos</h1>
@@ -38,12 +48,15 @@ export default class NewTaskForm extends React.Component {
               value={label}
             />
           <input
-           disabled
+          disabled
+          value={this.props.minTask}
           className="new-todo-form__timer" 
           placeholder="Min" 
           autoFocus/>
+          
           <input 
-          disabled 
+          disabled
+          value={this.props.secTask}
           className="new-todo-form__timer" 
           placeholder="Sec" 
           autoFocus/>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Task from '../Task/task'
 import './taskList.css'
 
-function TaskList({ todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted }) {
+function TaskList({ showTimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted }) {
   TaskList.defaultProps = {
     onDeleted: () => {},
     onEditing: () => {},
@@ -27,6 +27,9 @@ function TaskList({ todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onT
       <Task
         key={id}
         {...itemProps}
+        // onPlay={onPlay}
+        // onPause={onPause}
+        showTimer={showTimer}
         onToggleCompleted={() => onToggleCompleted(id)}
         onEditing={() => onEditing(id)}
         onDeleted={() => onDeleted(id)}
