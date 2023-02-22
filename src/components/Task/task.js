@@ -16,8 +16,12 @@ export default class Task extends React.Component {
         <div className="view">
           <input className="toggle" onClick={onToggleCompleted} defaultChecked={completed} type="checkbox" />
           <label htmlFor="description">
-            <span className="description">{label}</span>
-            <span className="created">Created {formatDistanceToNow(time, { includeSeconds: true })}</span>
+            <span className="title">{label}</span>
+            <span className="description">
+              <button className="icon icon-play"></button>
+              <button className="icon icon-pause"></button>
+            </span>
+            <span className="description">Created {formatDistanceToNow(time, { includeSeconds: true })}</span>
           </label>
           <button type="button" aria-label="edit" className="icon icon-edit" onClick={onEditing} />
           <button type="button" aria-label="destroy" className="icon icon-destroy" onClick={onDeleted} />
