@@ -9,12 +9,8 @@ export default class Task extends React.Component {
   // minutes = 0
   
   state = {
-    seconds: 0,
-    minutes: 0
-  }
-
-  componentDidMount () {
-    
+    seconds: parseInt(this.props.sec),
+    minutes: parseInt(this.props.min)
   }
 
   onPlay = () => {
@@ -27,18 +23,25 @@ export default class Task extends React.Component {
   }
 
   timerWorks = () => {
-    if(this.state.seconds > 58) {
-      this.setState( () => {
-        return {
-          seconds: 0,
-          minutes: this.state.minutes + 1
-        }
+    if(this.state.minutes == 0 && this.state.seconds == 0) {
+      clearInterval(this.interval)
+      this.setState({
+          seconds: `00`,
+          minutes: `00`
+        
+      })
+    }else if(this.state.seconds == 0) {
+      this.setState({
+        
+          seconds: 59,
+          minutes: (this.state.minutes <= 10) ? `0${this.state.minutes - 1}` : `${this.state.minutes - 1}`
+        
       })
     }else{
-      this.setState(() => {
-        return {
-          seconds: this.state.seconds + 1,
-        }
+      this.setState({
+        
+          seconds: (this.state.seconds <= 10) ? `0${this.state.seconds - 1}` : `${this.state.seconds - 1}` 
+        
       })
     }
     console.log('timerWorks', this.state.seconds, this.state.minutes)
@@ -48,27 +51,23 @@ export default class Task extends React.Component {
     clearInterval(this.interval)
   }
 
-  // componentDidUpdate(prevState) {
-  //   if(this.state.seconds !== prevState.seconds) {
-  //     console.log('update', this.state.seconds, this.state.minutes)
-  //   }
-  // }
-  
 
   render() {
-    const { showTimer, time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
+    const { time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
       this.props
     const { seconds, minutes } = this.state
+    console.log(typeof seconds)
     let classNames = ''
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'
     return (
-      <li className={classNames} onClick={( ) => showTimer(seconds,minutes ) }>
+      <li className={classNames} >
         <div className="view" >
           <input className="toggle" onClick={onToggleCompleted} defaultChecked={completed} type="checkbox" />
           <label htmlFor="description">
             <span className="title">{label}</span>
             <span className="description">
+              {minutes}:{seconds}
               <button className="icon icon-play" onClick={this.onPlay}></button>
               <button className="icon icon-pause" onClick={this.onPause}></button>
             </span>

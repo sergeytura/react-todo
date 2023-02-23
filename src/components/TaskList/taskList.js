@@ -4,32 +4,24 @@ import PropTypes from 'prop-types'
 import Task from '../Task/task'
 import './taskList.css'
 
-function TaskList({ showTimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted }) {
-  TaskList.defaultProps = {
-    onDeleted: () => {},
-    onEditing: () => {},
-    onSubmitEdit: () => {},
-    onChangeEdit: () => {},
-    onToggleCompleted: () => {},
-  }
+export default class TaskList extends React.Component {
+  
+  
 
-  TaskList.propTypes = {
-    onDeleted: PropTypes.func,
-    onEditing: PropTypes.func,
-    onSubmitEdit: PropTypes.func,
-    onChangeEdit: PropTypes.func,
-    onToggleCompleted: PropTypes.func,
-  }
 
-  const elements = todos.map((item) => {
+  render() {
+    const { todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted } = this.props
+    const elements = todos.map((item) => {
     const { id, ...itemProps } = item
     return (
       <Task
         key={id}
         {...itemProps}
+        // sendSec={sendSec}
+        // sendMin={sendMin}
         // onPlay={onPlay}
         // onPause={onPause}
-        showTimer={showTimer}
+        // showTimer={showTimer}
         onToggleCompleted={() => onToggleCompleted(id)}
         onEditing={() => onEditing(id)}
         onDeleted={() => onDeleted(id)}
@@ -39,6 +31,22 @@ function TaskList({ showTimer, todos, onDeleted, onEditing, onSubmitEdit, onChan
     )
   })
   return <ul className="todo-list">{elements}</ul>
+  }
+  
 }
 
-export default TaskList
+TaskList.defaultProps = {
+  onDeleted: () => {},
+  onEditing: () => {},
+  onSubmitEdit: () => {},
+  onChangeEdit: () => {},
+  onToggleCompleted: () => {},
+}
+
+TaskList.propTypes = {
+  onDeleted: PropTypes.func,
+  onEditing: PropTypes.func,
+  onSubmitEdit: PropTypes.func,
+  onChangeEdit: PropTypes.func,
+  onToggleCompleted: PropTypes.func,
+}

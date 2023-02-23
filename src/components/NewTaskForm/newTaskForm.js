@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import './newTaskForm.css'
 
 export default class NewTaskForm extends React.Component {
+
   state = {
     label: '',
+    sec: '',
+    min: ''
   }
- 
-  
 
   onChangeLabel = (event) => {
     this.setState({
@@ -17,23 +18,36 @@ export default class NewTaskForm extends React.Component {
 
   onSubmitLabel = (event) => {
     event.preventDefault()
-    this.props.onItem(this.state.label)
+    this.props.onItem(this.state.label, this.state.sec, this.state.min)
     this.setState({
       label: '',
+      sec: '',
+      min: ''
     })
   }
-  interval = setInterval(() => {}, 1000)
-  componentDidMount() {
-    this.interval = setInterval(() => {}, 1000)
+
+  getSec = (event) => {
+    console.log(`getSec`, event.target.value)
+    if(event.target.value > 59) event.target.value = 59
+    this.setState({
+      sec: event.target.value
+    })
+     
   }
 
-  componentDidUpdate(prevState) {
+  getMin = (event) => {
+    console.log(`getMin`, event.target.value)
+    if(event.target.value > 480) event.target.value = 480
+    this.setState({
+      min: event.target.value
+    })
+     
   }
 
   render() {
    
-    const { label  } = this.state
-    // const { secTask, minTask } = this.props
+    const { label, sec, min  } = this.state
+     
     return (
       <header className="header">
         <h1>todos</h1>
@@ -48,15 +62,19 @@ export default class NewTaskForm extends React.Component {
               value={label}
             />
           <input
-          disabled
-          value={this.props.minTask}
+          type='number'
+          min="0"
+          value={min}
+          onChange={this.getMin}
           className="new-todo-form__timer" 
           placeholder="Min" 
           autoFocus/>
           
           <input 
-          disabled
-          value={this.props.secTask}
+          type='number'
+          min="0"
+          value={sec}
+          onChange={this.getSec}
           className="new-todo-form__timer" 
           placeholder="Sec" 
           autoFocus/>
