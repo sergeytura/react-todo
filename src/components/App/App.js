@@ -7,12 +7,13 @@ import './App.css'
 
 export default class App extends React.Component {
   genID = 100
+  timerID = 10
    
   state = {
     all: true,
     active: false,
     done: false,
-    todoData: [],
+    todoData: []
     
   }
 
@@ -44,6 +45,20 @@ export default class App extends React.Component {
     })
   }
 
+  seTtimer = (id, seconds,minutes) =>{
+    
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.timer === id)
+      const oldItem = todoData[idx]
+      const newItem = { ...oldItem, sec: seconds, min: minutes }
+      const newArr = [...todoData.slice(0,idx), newItem, ...todoData.slice(idx + 1)]
+      return {
+        todoData: newArr
+      }
+    })
+  }
+ 
+
   onSubmitEdit = (id, event) => {
     event.preventDefault()
     this.setState(({ todoData }) => {
@@ -63,6 +78,8 @@ export default class App extends React.Component {
     })
   }
 
+  
+
   addItem = (text, currSec, currMin) => {
     const newItem = {
       label: text,
@@ -70,6 +87,7 @@ export default class App extends React.Component {
       editing: false,
       time: new Date(),
       id: this.genID++,
+      timer: this.timerID++,
       min: currMin,
       sec: currSec
     }
@@ -129,15 +147,7 @@ export default class App extends React.Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)]
   }
 
-  // showTimer = (seconds, minutes) => {
-  //   this.setState(({secTask, minTask}) => {
-  //       return {
-  //         secTask: seconds,
-  //         minTask: minutes
-  //       }
-  //   })
-  // }
-  
+ 
 
   render() {
     const { todoData, all, active, done, sendSec, sendMin } = this.state
@@ -149,11 +159,8 @@ export default class App extends React.Component {
         <NewTaskForm onItem={this.addItem}/>
         <section className="main">
           <TaskList
-            // sendSec={sendSec}
-            // sendMin={sendMin}
-            // onPlay={this.onPlay}
-            // onPause={this.onPause}
-            // showTimer={this.showTimer}
+            seTtimer={this.seTtimer}
+            
             onSubmitEdit={this.onSubmitEdit}
             onChangeEdit={this.onChangeEdit}
             onToggleCompleted={this.onToggleCompleted}

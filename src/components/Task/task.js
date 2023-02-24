@@ -5,21 +5,23 @@ import './task.css'
 
 export default class Task extends React.Component {
 
-  // seconds = 0
-  // minutes = 0
-  
   state = {
-    seconds: parseInt(this.props.sec),
-    minutes: parseInt(this.props.min)
+    // seconds: this.props.sec,
+    // minutes: this.props.min,
+    seconds: (this.props.sec).length < 2 ? `0${this.props.sec}`: this.props.sec,
+    minutes: (this.props.min).length < 2 ? `0${this.props.min}`: this.props.min,
   }
 
   onPlay = () => {
     if(this.interval) clearInterval(this.interval)
     this.interval = setInterval( () => this.timerWorks(), 1000)
+    if(this.intervalTimer) clearInterval(this.intervalTimer)
+    this.intervalTimer = setInterval( () => this.updateTimer(), 100)
   }
 
   onPause = () => {
     clearInterval(this.interval)
+    clearInterval(this.intervalTimer)
   }
 
   timerWorks = () => {
@@ -47,22 +49,27 @@ export default class Task extends React.Component {
     console.log('timerWorks', this.state.seconds, this.state.minutes)
   }
 
-  componentWillUnmount () {
-    clearInterval(this.interval)
+  updateTimer () {
+    this.props.seTtimer(this.props.timer, this.state.seconds, this.state.minutes)
   }
 
+  componentWillUnmount () {
+    clearInterval(this.intervalTimer)
+    // this.props.seTtimer(this.props.timer, this.state.seconds, this.state.minutes)
+    clearInterval(this.interval)
+  }
 
   render() {
     const { time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
       this.props
     const { seconds, minutes } = this.state
-    console.log(typeof seconds)
+    // console.log(typeof seconds)
     let classNames = ''
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'
     return (
       <li className={classNames} >
-        <div className="view" >
+        <div className="view">
           <input className="toggle" onClick={onToggleCompleted} defaultChecked={completed} type="checkbox" />
           <label htmlFor="description">
             <span className="title">{label}</span>
