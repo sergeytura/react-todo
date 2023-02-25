@@ -6,8 +6,6 @@ import './task.css'
 export default class Task extends React.Component {
 
   state = {
-    // seconds: this.props.sec,
-    // minutes: this.props.min,
     seconds: (this.props.sec).length < 2 ? `0${this.props.sec}`: this.props.sec,
     minutes: (this.props.min).length < 2 ? `0${this.props.min}`: this.props.min,
   }
@@ -46,7 +44,6 @@ export default class Task extends React.Component {
         
       })
     }
-    console.log('timerWorks', this.state.seconds, this.state.minutes)
   }
 
   updateTimer () {
@@ -55,7 +52,6 @@ export default class Task extends React.Component {
 
   componentWillUnmount () {
     clearInterval(this.intervalTimer)
-    // this.props.seTtimer(this.props.timer, this.state.seconds, this.state.minutes)
     clearInterval(this.interval)
   }
 
@@ -63,7 +59,6 @@ export default class Task extends React.Component {
     const { time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
       this.props
     const { seconds, minutes } = this.state
-    // console.log(typeof seconds)
     let classNames = ''
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'

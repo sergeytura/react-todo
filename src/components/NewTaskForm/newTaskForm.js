@@ -27,7 +27,6 @@ export default class NewTaskForm extends React.Component {
   }
 
   getSec = (event) => {
-    console.log(`getSec`, event.target.value)
     if(event.target.value > 59) event.target.value = 59
     this.setState({
       sec: event.target.value
@@ -36,7 +35,6 @@ export default class NewTaskForm extends React.Component {
   }
 
   getMin = (event) => {
-    console.log(`getMin`, event.target.value)
     if(event.target.value > 480) event.target.value = 480
     this.setState({
       min: event.target.value
@@ -64,6 +62,7 @@ export default class NewTaskForm extends React.Component {
           <input
           type='number'
           min="0"
+          required
           value={min}
           onChange={this.getMin}
           className="new-todo-form__timer" 
@@ -73,6 +72,7 @@ export default class NewTaskForm extends React.Component {
           <input 
           type='number'
           min="0"
+          required
           value={sec}
           onChange={this.getSec}
           className="new-todo-form__timer" 
