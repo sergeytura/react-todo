@@ -5,27 +5,25 @@ import Task from '../Task/task'
 import './taskList.css'
 
 export default class TaskList extends React.Component {
- 
   render() {
     const { seTtimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted } = this.props
     const elements = todos.map((item) => {
-    const { id, ...itemProps } = item
-    return (
-      <Task
-        key={id}
-        {...itemProps}
-        seTtimer={seTtimer}
-        onToggleCompleted={() => onToggleCompleted(id)}
-        onEditing={() => onEditing(id)}
-        onDeleted={() => onDeleted(id)}
-        onChangeEdit={(event) => onChangeEdit(id, event)}
-        onSubmitEdit={(event) => onSubmitEdit(id, event)}
-      />
-    )
-  })
-  return <ul className="todo-list">{elements}</ul>
+      const { id, ...itemProps } = item
+      return (
+        <Task
+          key={id}
+          {...itemProps}
+          seTtimer={seTtimer}
+          onToggleCompleted={() => onToggleCompleted(id)}
+          onEditing={() => onEditing(id)}
+          onDeleted={() => onDeleted(id)}
+          onChangeEdit={(event) => onChangeEdit(id, event)}
+          onSubmitEdit={(event) => onSubmitEdit(id, event)}
+        />
+      )
+    })
+    return <ul className="todo-list">{elements}</ul>
   }
-  
 }
 
 TaskList.defaultProps = {

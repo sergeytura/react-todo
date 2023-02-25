@@ -4,17 +4,21 @@ import { formatDistanceToNow } from 'date-fns'
 import './task.css'
 
 export default class Task extends React.Component {
-
   state = {
-    seconds: (this.props.sec).length < 2 ? `0${this.props.sec}`: this.props.sec,
-    minutes: (this.props.min).length < 2 ? `0${this.props.min}`: this.props.min,
+    seconds: this.props.sec.length < 2 ? `0${this.props.sec}` : `${this.props.sec}`,
+    minutes: this.props.min.length < 2 ? `0${this.props.min}` : `${this.props.min}`,
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalTimer)
+    clearInterval(this.interval)
   }
 
   onPlay = () => {
-    if(this.interval) clearInterval(this.interval)
-    this.interval = setInterval( () => this.timerWorks(), 1000)
-    if(this.intervalTimer) clearInterval(this.intervalTimer)
-    this.intervalTimer = setInterval( () => this.updateTimer(), 100)
+    if (this.interval) clearInterval(this.interval)
+    this.interval = setInterval(() => this.timerWorks(), 1000)
+    if (this.intervalTimer) clearInterval(this.intervalTimer)
+    this.intervalTimer = setInterval(() => this.updateTimer(), 100)
   }
 
   onPause = () => {
@@ -23,36 +27,27 @@ export default class Task extends React.Component {
   }
 
   timerWorks = () => {
-    if(this.state.minutes == 0 && this.state.seconds == 0) {
+    if (this.state.minutes === '00' && this.state.seconds === '00') {
       clearInterval(this.interval)
-      this.setState({
-          seconds: `00`,
-          minutes: `00`
-        
+      clearInterval(this.intervalTimer)
+    } else if (this.state.seconds === '00') {
+      this.setState(({ minutes }) => {
+        return {
+          seconds: '59',
+          minutes: minutes <= 10 ? `0${minutes - 1}` : `${minutes - 1}`,
+        }
       })
-    }else if(this.state.seconds == 0) {
-      this.setState({
-        
-          seconds: 59,
-          minutes: (this.state.minutes <= 10) ? `0${this.state.minutes - 1}` : `${this.state.minutes - 1}`
-        
-      })
-    }else{
-      this.setState({
-        
-          seconds: (this.state.seconds <= 10) ? `0${this.state.seconds - 1}` : `${this.state.seconds - 1}` 
-        
+    } else {
+      this.setState(({ seconds }) => {
+        return {
+          seconds: seconds <= 10 ? `0${seconds - 1}` : `${seconds - 1}`,
+        }
       })
     }
   }
 
-  updateTimer () {
+  updateTimer() {
     this.props.seTtimer(this.props.timer, this.state.seconds, this.state.minutes)
-  }
-
-  componentWillUnmount () {
-    clearInterval(this.intervalTimer)
-    clearInterval(this.interval)
   }
 
   render() {
@@ -63,15 +58,15 @@ export default class Task extends React.Component {
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'
     return (
-      <li className={classNames} >
+      <li className={classNames}>
         <div className="view">
           <input className="toggle" onClick={onToggleCompleted} defaultChecked={completed} type="checkbox" />
           <label htmlFor="description">
             <span className="title">{label}</span>
             <span className="description">
               {minutes}:{seconds}
-              <button className="icon icon-play" onClick={this.onPlay}></button>
-              <button className="icon icon-pause" onClick={this.onPause}></button>
+              <button type="button" aria-label="icon-play" className="icon icon-play" onClick={this.onPlay} />
+              <button type="button" aria-label="icon-pause" className="icon icon-pause" onClick={this.onPause} />
             </span>
             <span className="description">Created {formatDistanceToNow(time, { includeSeconds: true })}</span>
           </label>

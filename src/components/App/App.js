@@ -7,14 +7,14 @@ import './App.css'
 
 export default class App extends React.Component {
   genID = 100
+
   timerID = 10
-   
+
   state = {
     all: true,
     active: false,
     done: false,
-    todoData: []
-    
+    todoData: [],
   }
 
   onToggleCompleted = (id) => {
@@ -45,19 +45,17 @@ export default class App extends React.Component {
     })
   }
 
-  seTtimer = (id, seconds,minutes) =>{
-    
+  seTtimer = (id, seconds, minutes) => {
     this.setState(({ todoData }) => {
       const idx = todoData.findIndex((el) => el.timer === id)
       const oldItem = todoData[idx]
       const newItem = { ...oldItem, sec: seconds, min: minutes }
-      const newArr = [...todoData.slice(0,idx), newItem, ...todoData.slice(idx + 1)]
+      const newArr = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
       return {
-        todoData: newArr
+        todoData: newArr,
       }
     })
   }
- 
 
   onSubmitEdit = (id, event) => {
     event.preventDefault()
@@ -78,8 +76,6 @@ export default class App extends React.Component {
     })
   }
 
-  
-
   addItem = (text, currSec, currMin) => {
     const newItem = {
       label: text,
@@ -89,7 +85,7 @@ export default class App extends React.Component {
       id: this.genID++,
       timer: this.timerID++,
       min: currMin,
-      sec: currSec
+      sec: currSec,
     }
     this.setState(({ todoData }) => {
       const newArr = [...todoData, newItem]
@@ -132,8 +128,6 @@ export default class App extends React.Component {
     })
   }
 
-  
-
   todoRender = () => {
     if (this.state.all) return this.state.todoData
     if (this.state.active) return this.state.todoData.filter((el) => !el.completed)
@@ -147,20 +141,16 @@ export default class App extends React.Component {
     return [...arr.slice(0, idx), newItem, ...arr.slice(idx + 1)]
   }
 
- 
-
   render() {
-    const { todoData, all, active, done, sendSec, sendMin } = this.state
-    const { } = this.props
+    const { todoData, all, active, done } = this.state
     const itemsCompleted = todoData.filter((el) => el.completed)
     const itemsLeft = todoData.length - itemsCompleted.length
     return (
       <section className="todoapp">
-        <NewTaskForm onItem={this.addItem}/>
+        <NewTaskForm onItem={this.addItem} />
         <section className="main">
           <TaskList
             seTtimer={this.seTtimer}
-            
             onSubmitEdit={this.onSubmitEdit}
             onChangeEdit={this.onChangeEdit}
             onToggleCompleted={this.onToggleCompleted}
