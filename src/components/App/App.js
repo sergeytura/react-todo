@@ -8,8 +8,6 @@ import './App.css'
 export default class App extends React.Component {
   genID = 100
 
-  timerID = 10
-
   state = {
     all: true,
     active: false,
@@ -47,13 +45,15 @@ export default class App extends React.Component {
 
   seTtimer = (id, seconds, minutes) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.timer === id)
-      const oldItem = todoData[idx]
-      const newItem = { ...oldItem, sec: seconds, min: minutes }
-      const newArr = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
-      return {
-        todoData: newArr,
-      }
+      const saved = todoData.map((todo) => {
+        if (todo.id !== id) return todo
+        return {
+          ...todo,
+          sec: seconds,
+          min: minutes,
+        }
+      })
+      return { todoData: saved }
     })
   }
 
@@ -83,7 +83,6 @@ export default class App extends React.Component {
       editing: false,
       time: new Date(),
       id: this.genID++,
-      timer: this.timerID++,
       min: currMin,
       sec: currSec,
     }

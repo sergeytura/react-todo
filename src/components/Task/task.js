@@ -10,26 +10,22 @@ export default class Task extends React.Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.intervalTimer)
+    this.props.seTtimer(this.state.seconds, this.state.minutes)
     clearInterval(this.interval)
   }
 
   onPlay = () => {
     if (this.interval) clearInterval(this.interval)
     this.interval = setInterval(() => this.timerWorks(), 1000)
-    if (this.intervalTimer) clearInterval(this.intervalTimer)
-    this.intervalTimer = setInterval(() => this.updateTimer(), 100)
   }
 
   onPause = () => {
     clearInterval(this.interval)
-    clearInterval(this.intervalTimer)
   }
 
   timerWorks = () => {
     if (this.state.minutes === '00' && this.state.seconds === '00') {
       clearInterval(this.interval)
-      clearInterval(this.intervalTimer)
     } else if (this.state.seconds === '00') {
       this.setState(({ minutes }) => {
         return {
@@ -46,14 +42,11 @@ export default class Task extends React.Component {
     }
   }
 
-  updateTimer() {
-    this.props.seTtimer(this.props.timer, this.state.seconds, this.state.minutes)
-  }
-
   render() {
     const { time, onSubmitEdit, onChangeEdit, label, onDeleted, onToggleCompleted, onEditing, completed, editing } =
       this.props
     const { seconds, minutes } = this.state
+
     let classNames = ''
     if (completed) classNames = 'completed'
     if (editing) classNames = 'editing'

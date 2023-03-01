@@ -13,7 +13,8 @@ export default class TaskList extends React.Component {
         <Task
           key={id}
           {...itemProps}
-          seTtimer={seTtimer}
+          id={id}
+          seTtimer={(sec, min) => seTtimer(id, sec, min)}
           onToggleCompleted={() => onToggleCompleted(id)}
           onEditing={() => onEditing(id)}
           onDeleted={() => onDeleted(id)}
