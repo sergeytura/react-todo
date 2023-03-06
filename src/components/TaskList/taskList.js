@@ -5,8 +5,15 @@ import Task from '../Task/task'
 import './taskList.css'
 // // // // //
 // export default class TaskList extends React.Component {
-export default function TaskList({setTimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted}) {
-
+export default function TaskList({
+  setTimer,
+  todos,
+  onDeleted,
+  onEditing,
+  onSubmitEdit,
+  onChangeEdit,
+  onToggleCompleted,
+}) {
   TaskList.defaultProps = {
     onDeleted: () => {},
     onEditing: () => {},
@@ -14,7 +21,7 @@ export default function TaskList({setTimer, todos, onDeleted, onEditing, onSubmi
     onChangeEdit: () => {},
     onToggleCompleted: () => {},
   }
-  
+
   TaskList.propTypes = {
     onDeleted: PropTypes.func,
     onEditing: PropTypes.func,
@@ -22,26 +29,26 @@ export default function TaskList({setTimer, todos, onDeleted, onEditing, onSubmi
     onChangeEdit: PropTypes.func,
     onToggleCompleted: PropTypes.func,
   }
-  
+
   // render() {
-    // const { setTimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted } = this.props
-    const elements = todos.map((item) => {
-      const { id, ...itemProps } = item
-      return (
-        <Task
-          key={id}
-          {...itemProps}
-          id={id}
-          setTimer={(sec, min) => setTimer(id, sec, min)}
-          onToggleCompleted={() => onToggleCompleted(id)}
-          onEditing={() => onEditing(id)}
-          onDeleted={() => onDeleted(id)}
-          onChangeEdit={(event) => onChangeEdit(id, event)}
-          onSubmitEdit={(event) => onSubmitEdit(id, event)}
-        />
-      )
-    })
-    return <ul className="todo-list">{elements}</ul>
+  // const { setTimer, todos, onDeleted, onEditing, onSubmitEdit, onChangeEdit, onToggleCompleted } = this.props
+  const elements = todos.map((item) => {
+    const { id, ...itemProps } = item
+    return (
+      <Task
+        key={id}
+        {...itemProps}
+        id={id}
+        setTimer={(sec, min) => setTimer(id, sec, min)}
+        onToggleCompleted={() => onToggleCompleted(id)}
+        onEditing={() => onEditing(id)}
+        onDeleted={() => onDeleted(id)}
+        onChangeEdit={(event) => onChangeEdit(id, event)}
+        onSubmitEdit={(event) => onSubmitEdit(id, event)}
+      />
+    )
+  })
+  return <ul className="todo-list">{elements}</ul>
   // }
 }
 
