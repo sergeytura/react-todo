@@ -19,11 +19,11 @@ export default function App() {
   }
 
   const onToggleCompleted = (id) => {
-    setTodoData(toggleProperty(todoData, id, 'completed'))
+    setTodoData((data) => toggleProperty(data, id, 'completed'))
   }
 
   const onEditing = (id) => {
-    setTodoData(toggleProperty(todoData, id, 'editing'))
+    setTodoData((data) => toggleProperty(data, id, 'editing'))
   }
 
   const onChangeEdit = (id, event) => {

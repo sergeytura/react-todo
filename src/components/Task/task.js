@@ -17,28 +17,6 @@ function Task({
   completed,
   editing,
 }) {
-  Task.defaultProps = {
-    onSubmitEdit: () => {},
-    onChangeEdit: () => {},
-    onDeleted: () => {},
-    onToggleCompleted: () => {},
-    onEditing: () => {},
-    label: '',
-    completed: false,
-    editing: false,
-  }
-
-  Task.propTypes = {
-    onSubmitEdit: PropTypes.func,
-    onChangeEdit: PropTypes.func,
-    onDeleted: PropTypes.func,
-    onToggleCompleted: PropTypes.func,
-    onEditing: PropTypes.func,
-    label: PropTypes.string,
-    completed: PropTypes.bool,
-    editing: PropTypes.bool,
-  }
-
   const [seconds, setSeconds] = useState(sec.length < 2 ? `0${sec}` : `${sec}`)
   const [minutes, setMinutes] = useState(min.length < 2 ? `0${min}` : `${min}`)
 
@@ -56,10 +34,6 @@ function Task({
       }
     }
   }
-
-  // const obj = useMemo(() => {
-  //   return {country: 'Chile', city: 'Santiago'};
-  // }, []);
 
   const onPlay = () => {
     setTiming(true)
@@ -101,6 +75,28 @@ function Task({
       </form>
     </li>
   )
+}
+
+Task.defaultProps = {
+  onSubmitEdit: () => {},
+  onChangeEdit: () => {},
+  onDeleted: () => {},
+  onToggleCompleted: () => {},
+  onEditing: () => {},
+  label: '',
+  completed: false,
+  editing: false,
+}
+
+Task.propTypes = {
+  onSubmitEdit: PropTypes.func,
+  onChangeEdit: PropTypes.func,
+  onDeleted: PropTypes.func,
+  onToggleCompleted: PropTypes.func,
+  onEditing: PropTypes.func,
+  label: PropTypes.string,
+  completed: PropTypes.bool,
+  editing: PropTypes.bool,
 }
 
 export default Task
