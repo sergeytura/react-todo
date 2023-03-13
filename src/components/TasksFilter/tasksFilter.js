@@ -3,26 +3,25 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './tasksFilter.css'
 
-export default class TasksFilter extends React.Component {
-  render() {
-    const { allFilter, activeFilter, complitedFilter, all, active, done } = this.props
-    const filterArr = [
-      ['All', all, allFilter, 1],
-      ['Active', active, activeFilter, 2],
-      ['Completed', done, complitedFilter, 3],
-    ]
-    const filterElements = filterArr.map((item) => {
-      return (
-        <li key={item[3]}>
-          <button type="button" className={classNames({ selected: item[1] })} onClick={item[2]}>
-            {item[0]}
-          </button>
-        </li>
-      )
-    })
-    return <ul className="filters">{filterElements}</ul>
-  }
+function TasksFilter({ allFilter, activeFilter, complitedFilter, all, active, done }) {
+  const filterArr = [
+    ['All', all, allFilter, 1],
+    ['Active', active, activeFilter, 2],
+    ['Completed', done, complitedFilter, 3],
+  ]
+  const filterElements = filterArr.map((item) => {
+    return (
+      <li key={item[3]}>
+        <button type="button" className={classNames({ selected: item[1] })} onClick={item[2]}>
+          {item[0]}
+        </button>
+      </li>
+    )
+  })
+  return <ul className="filters">{filterElements}</ul>
 }
+
+export default TasksFilter
 
 TasksFilter.defaultProps = {
   allFilter: () => {},
